@@ -1,6 +1,6 @@
 <?php
 
-namespace Ziphp\Recipes;
+namespace Zivvio\Recipes;
 
 use Symfony\Component\String\ByteString;
 use Yii;

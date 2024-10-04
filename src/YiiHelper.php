@@ -1,6 +1,6 @@
 <?php
 
-namespace Ziphp\Recipes;
+namespace Zivvio\Recipes;
 
 final class YiiHelper
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ziphp\Recipes;
+namespace Zivvio\Recipes;
 
 use Yii;
 use yii\base\Action;

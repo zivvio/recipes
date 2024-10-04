@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ziphp\Recipes;
+namespace Zivvio\Recipes;
 
 use Symfony\Component\HttpClient\CurlHttpClient;
 use Symfony\Component\HttpClient\HttpClient;

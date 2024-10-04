@@ -1,6 +1,6 @@
 <?php
 
-namespace Ziphp\Recipes;
+namespace Zivvio\Recipes;
 
 use DateTimeImmutable;
 use Lcobucci\JWT\Encoding\CannotDecodeContent;
