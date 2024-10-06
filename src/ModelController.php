@@ -236,6 +236,7 @@ class ModelController extends Controller
     public function options($actionID)
     {
         return array_merge(parent::options($actionID), [
+            'connection',
             'override',
             'exclude',
             'modelNamePrefix',
@@ -245,6 +246,7 @@ class ModelController extends Controller
     public function optionAliases()
     {
         return array_merge(parent::optionAliases(), [
+            'c' => 'connection',
             'p' => 'modelNamePrefix',
         ]);
     }
@@ -518,9 +520,9 @@ class ModelController extends Controller
         $class->setFinal();
 
         if (file_put_contents($file, "<?php\n\ndeclare(strict_types=1);\n\n" . $namespace->__toString()) !== false) {
-            echo '✔ Successfully created model ' . Inflector::camelize($tableName);
+            echo '✔ Successfully created model ' . Inflector::camelize($tableName) . "\n\n";
         } else {
-            echo '✘ Failed to create model ' . Inflector::camelize($tableName);
+            echo '✘ Failed to create model ' . Inflector::camelize($tableName) . "\n\n";
         }
     }
 
@@ -534,7 +536,6 @@ class ModelController extends Controller
             'D:/php-cs-fixer.phar',
         ];
 
-        $phpcsfixer = $phpcsfixerPaths[0];
         foreach ($phpcsfixerPaths as $phpcsfixerPath) {
             if (file_exists($phpcsfixerPath)) {
                 $phpcsfixer = $phpcsfixerPath;
@@ -542,20 +543,15 @@ class ModelController extends Controller
             }
         }
 
-        $cmd = "php $phpcsfixer --version  2>&1";
-        exec($cmd, $output, $outCode);
-        echo "exec: $cmd" . "\n",
-            implode("\n", $output)
-            . "\nresult code: $outCode\n";
-        unset($cmd, $output, $outCode);
+        if (!isset($phpcsfixer)) {
+            echo "php-cs-fixer Not Found!\n";
+            return;
+        }
 
         $cmd = "php $phpcsfixer --config=$rootDir/.php-cs-fixer.dist.php fix $file  2>&1";
         exec($cmd, $output, $outCode);
-        echo implode("\n", $output) . "\nresult code: $outCode\n";
-        echo "exec: $cmd" . "\n",
-            implode("\n", $output)
-            . "\nresult code: $outCode\n";
-        unset($cmd, $output, $outCode);
+
+        echo "exec: $cmd\n\n" . implode("\n", $output) . "\nResult Code: $outCode\n\n";
     }
 
     private function castColumn(ColumnSchema $column): void
