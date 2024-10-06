@@ -30,6 +30,7 @@
         "zivvio/zivvio": ">=5.0.0"
     },
     "require-dev": {
+        "nette/php-generator": "^4.1",
         "phpunit/phpunit": "^9.5"
     },
     "config": {
