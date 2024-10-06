@@ -25,7 +25,7 @@
         "lcobucci/clock": "^3.0",
         "lcobucci/jwt": "^5.0",
         "symfony/http-client": "^6.4|^7.0",
-        "symfony/string": "^6.4|^7.0",
+        "symfony/string": "^7.1.5",
         "symfony/var-dumper": "^6.4|^7.0",
         "zivvio/zivvio": ">=5.0.0"
     },
