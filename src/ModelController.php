@@ -527,10 +527,9 @@ class ModelController extends Controller
         $rootDir = dirname(Yii::getAlias('@vendor'));
 
         $phpcsfixerPaths = [
-            'D:/phpcsfixer.phar',
-            'D:/php-cs-fixer.phar',
             "$rootDir/php-cs-fixer.phar",
             '/usr/local/bin/php-cs-fixer',
+            'D:/php-cs-fixer.phar',
         ];
 
         $phpcsfixer = $phpcsfixerPaths[0];
