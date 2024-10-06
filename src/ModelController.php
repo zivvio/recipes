@@ -47,6 +47,8 @@ class ModelController extends Controller
     private const EDGE_MAX = 'max';
     private const EDGE_MIN = 'min';
 
+    public string $connection = 'db';
+
     public string $modelNamespace = 'Zpp\\Models';
     public string $modelExtends = '\\Zpp\\Models\\BaseModel';
     public string $modelDir = '@app/src/Models';
@@ -254,7 +256,7 @@ class ModelController extends Controller
 
     public function actionGiiAll(): void
     {
-        $tableNames = Yii::$app->db->getSchema()->getTableNames('', true);
+        $tableNames = Yii::$app->{$this->connection}->getSchema()->getTableNames('', true);
 
         $exclude = array_merge([
             'dbcache',
@@ -291,7 +293,7 @@ class ModelController extends Controller
         }
 
         // Table Struct
-        $_schema = Yii::$app->db->getTableSchema($tableName, true);
+        $_schema = Yii::$app->{$this->connection}->getTableSchema($tableName, true);
 
         if (!($_schema instanceof TableSchema)) {
             echo "Table $tableName does not exist.\n";
@@ -882,7 +884,7 @@ class ModelController extends Controller
     private function getTableComment(string $tableName): ?string
     {
         $sql = "SHOW TABLE STATUS WHERE Name = '$tableName'";
-        $command = Yii::$app->db->createCommand($sql);
+        $command = Yii::$app->{$this->connection}->createCommand($sql);
 
         try {
             $query = $command->queryOne();
@@ -894,8 +896,8 @@ class ModelController extends Controller
 
     private function getTableIndexes(string $tableName): array
     {
-        $sql = 'SHOW INDEX FROM ' . Yii::$app->db->schema->getRawTableName($tableName);
-        $command = Yii::$app->db->createCommand($sql);
+        $sql = 'SHOW INDEX FROM ' . Yii::$app->{$this->connection}->schema->getRawTableName($tableName);
+        $command = Yii::$app->{$this->connection}->createCommand($sql);
 
         try {
             return $command->queryAll();
@@ -906,10 +908,10 @@ class ModelController extends Controller
 
     private function getTableForeignKeys(string $tableName): array
     {
-        preg_match('/dbname=([^;]+)/', Yii::$app->db->dsn, $matches);
+        preg_match('/dbname=([^;]+)/', Yii::$app->{$this->connection}->dsn, $matches);
 
         $databaseName = $matches[1];
-        $tableName = Yii::$app->db->schema->getRawTableName($tableName);
+        $tableName = Yii::$app->{$this->connection}->schema->getRawTableName($tableName);
 
         $sql = <<<EOT
 SELECT
@@ -934,7 +936,7 @@ ORDER BY
     ii.TABLE_NAME;
 EOT;
 
-        $command = Yii::$app->db->createCommand($sql);
+        $command = Yii::$app->{$this->connection}->createCommand($sql);
 
         try {
             $all = $command->queryAll();
