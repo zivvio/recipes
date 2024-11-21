@@ -22,7 +22,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "charescape/php-functions": ">=1.1.0",
-        "lcobucci/clock": "^3.0",
+        "lcobucci/clock": "^3.3",
         "lcobucci/jwt": "^5.0",
         "symfony/http-client": "^6.4|^7.0",
         "symfony/string": "^6.4|^7.0",
